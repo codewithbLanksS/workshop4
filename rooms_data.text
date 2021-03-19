@@ -1,0 +1,21 @@
+{
+    "_id" : "1000000001",
+    "id" : "1000000001",
+    "rooms_name" : "Private room",
+    "price" : "1200"
+}
+
+
+{
+    "_id" : "1000000002",
+    "id" : "1000000002",
+    "rooms_name" : "Package room",
+    "price" : "3500"
+}
+
+{
+    "_id" : "1000000003",
+    "id" : "1000000003",
+    "rooms_name" : "Group room",
+    "price" : "490"
+}

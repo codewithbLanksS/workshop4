@@ -1,12 +1,12 @@
 {
 	"info": {
 		"_postman_id": "d040dd1d-7965-46dc-a6d9-c504f651e9d5",
-		"name": "workshop4",
+		"name": "workshop_hotel",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Insert books",
+			"name": "Insert rooms type",
 			"event": [
 				{
 					"listen": "test",
@@ -15,7 +15,7 @@
 							"const jsonData = pm.response.json();",
 							"",
 							"pm.test(\"should have key mongo_id\", function () {",
-							"    pm.expect(jsonData.data).to.have.property('student_id');",
+							"    pm.expect(jsonData.data).to.have.property('rooms_id');",
 							"})"
 						],
 						"type": "text/javascript"
@@ -33,22 +33,22 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\" : \"5630252488\",\n    \"first_name\" : \"pipusana\",\n    \"last_name\" : \"petgumpoom\",\n    \"email\" : \"pipusana.p@gmail.com\",\n    \"gender\" : \"male\",\n    \"age\" : 26,\n    \"picture_url\": \"https://scontent.fbkk12-1.fna.fbcdn.net/v/t1.0-9/1005556_545569122156064_28511899_n.jpg?_nc_cat=101&ccb=2&_nc_sid=174925&_nc_ohc=Wl8T81WCp_oAX-b4-1V&_nc_ht=scontent.fbkk12-1.fna&oh=cb2967395d3e8555a7a33c0bf4cf58b4&oe=60308979\",\n    \"height\": 180,\n    \"weight\": 74.2,\n    \"hobby\": [\"jogging\", \"gaming\"],\n    \"country\" : \"thailand\",\n    \"city\" : \"bangkok\"\n}\n"
+					"raw": "{\n    \"id\" : \"1000000001\",\n    \"rooms_name\" : \"Private rooms\",\n    \"price\" : \"1200\"\n}\n"
 				},
 				"url": {
-					"raw": "{{apiUrl}}/students",
+					"raw": "{{apiUrl}}/rooms",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students"
+						"rooms"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Find books",
+			"name": "Find Hotel",
 			"event": [
 				{
 					"listen": "test",
@@ -68,12 +68,12 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{apiUrl}}/students/",
+					"raw": "{{apiUrl}}/rooms/",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
+						"rooms",
 						""
 					]
 				}
@@ -81,7 +81,7 @@
 			"response": []
 		},
 		{
-			"name": "Find books sort by age order by asc",
+			"name": "Find Hotel rooms sort by rooms name by asc",
 			"event": [
 				{
 					"listen": "test",
@@ -101,18 +101,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{apiUrl}}/students/?sort_by=age&order=asc",
+					"raw": "{{apiUrl}}/rooms/?sort_by=rooms_name&order=asc",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
+						"rooms",
 						""
 					],
 					"query": [
 						{
 							"key": "sort_by",
-							"value": "age"
+							"value": "rooms_name"
 						},
 						{
 							"key": "order",
@@ -124,7 +124,7 @@
 			"response": []
 		},
 		{
-			"name": "Find books sort by age order by desc",
+			"name": "Find Hotel rooms sort by rooms name order by desc",
 			"event": [
 				{
 					"listen": "test",
@@ -144,18 +144,18 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{apiUrl}}/students/?sort_by=age&order=desc",
+					"raw": "{{apiUrl}}/rooms/?sort_by=rooms_name&order=desc",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
+						"rooms",
 						""
 					],
 					"query": [
 						{
 							"key": "sort_by",
-							"value": "age"
+							"value": "rooms_name"
 						},
 						{
 							"key": "order",
@@ -167,7 +167,7 @@
 			"response": []
 		},
 		{
-			"name": "Update books",
+			"name": "Update Rooms",
 			"event": [
 				{
 					"listen": "test",
@@ -176,7 +176,7 @@
 							"const jsonData = pm.response.json();",
 							"",
 							"pm.test(\"should have key mongo_id\", function () {",
-							"    pm.expect(jsonData.data).to.have.property('student_id');",
+							"    pm.expect(jsonData.data).to.have.property('rooms_id');",
 							"})",
 							"",
 							"pm.test(\"should have key modified_count\", function () {",
@@ -198,23 +198,23 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"weight\" : 74\n}"
+					"raw": "{\n    \"price\" : 1200\n}"
 				},
 				"url": {
-					"raw": "{{apiUrl}}/students/5630252488",
+					"raw": "{{apiUrl}}/rooms/1000000001",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
-						"5630252488"
+						"rooms",
+						"1000000001"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Find books by id",
+			"name": "Find Hotel rooms by id",
 			"event": [
 				{
 					"listen": "test",
@@ -234,20 +234,20 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{apiUrl}}/students/5630252488",
+					"raw": "{{apiUrl}}/rooms/1000000001",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
-						"5630252488"
+						"rooms",
+						"1000000001"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete books",
+			"name": "Delete Rooms hotel",
 			"event": [
 				{
 					"listen": "test",
@@ -256,7 +256,7 @@
 							"const jsonData = pm.response.json();",
 							"",
 							"pm.test(\"should have key mongo_id\", function () {",
-							"    pm.expect(jsonData.data).to.have.property('student_id');",
+							"    pm.expect(jsonData.data).to.have.property('rooms_id');",
 							"})",
 							"",
 							"pm.test(\"should have key deleted_count\", function () {",
@@ -278,16 +278,16 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "var jsonData = pm.response.json();\n\npm.test(\"should have key mongo_id\", function () {\n    pm.expect(jsonData.data).to.have.property('student_id');\n})\n\npm.test(\"should have key modified_count\", function () {\n    pm.expect(jsonData.data).to.have.property('deleted_count');\n})"
+					"raw": "var jsonData = pm.response.json();\n\npm.test(\"should have key mongo_id\", function () {\n    pm.expect(jsonData.data).to.have.property('rooms_id');\n})\n\npm.test(\"should have key modified_count\", function () {\n    pm.expect(jsonData.data).to.have.property('deleted_count');\n})"
 				},
 				"url": {
-					"raw": "{{apiUrl}}/students/5630252488",
+					"raw": "{{apiUrl}}/rooms/1000000003",
 					"host": [
 						"{{apiUrl}}"
 					],
 					"path": [
-						"students",
-						"5630252488"
+						"rooms",
+						"1000000001"
 					]
 				}
 			},

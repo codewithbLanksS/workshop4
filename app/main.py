@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from database.mongodb import MongoDB
 from config.development import config
-from model.student import createStudentModel, updateStudentModel
+from model.room import createRoomsModel, updateRoomsModel
 
 mongo_config = config["mongo_config"]
 mongo_db = MongoDB(
@@ -33,17 +33,17 @@ app.add_middleware(
 
 @app.get("/")
 def index():
-    return JSONResponse(content={"message": "Student Info"}, status_code=200)
+    return JSONResponse(content={"message": "rooms Info"}, status_code=200)
 
 
-@app.get("/students/")
-def get_students(
+@app.get("/rooms/")
+def get_rooms(
     sort_by: Optional[str] = None,
     order: Optional[str] = Query(None, min_length=3, max_length=4),
 ):
 
     try:
-        result = mongo_db.find(sort_by, order)
+        result = mongo_db.find(order, sort_by)
     except:
         raise HTTPException(status_code=500, detail="Something went wrong !!")
 
@@ -53,15 +53,16 @@ def get_students(
     )
 
 
-@app.get("/students/{student_id}")
-def get_students_by_id(student_id: str = Path(None, min_length=10, max_length=10)):
+@app.get("/rooms/{rooms_id}")
+def get_rooms_by_id(rooms_id: str = Path(None, min_length=10, max_length=10)):
+    print("bank")
     try:
-        result = mongo_db.find_one(student_id)
+        result = mongo_db.find_one(rooms_id)
     except:
         raise HTTPException(status_code=500, detail="Something went wrong !!")
 
     if result is None:
-        raise HTTPException(status_code=404, detail="Student Id not found !!")
+        raise HTTPException(status_code=404, detail="Room Id not found !!")
 
     return JSONResponse(
         content={"status": "OK", "data": result},
@@ -69,10 +70,12 @@ def get_students_by_id(student_id: str = Path(None, min_length=10, max_length=10
     )
 
 
-@app.post("/students")
-def create_books(student: createStudentModel):
+@app.post("/rooms")
+def create(rooms: createRoomsModel):
+    print(rooms)
+    print("bank")
     try:
-        student_id = mongo_db.create(student)
+        rooms_id = mongo_db.create(rooms)
     except:
         raise HTTPException(status_code=500, detail="Something went wrong !!")
 
@@ -80,35 +83,35 @@ def create_books(student: createStudentModel):
         content={
             "status": "ok",
             "data": {
-                "student_id": student_id,
+                "rooms_id": rooms_id,
             },
         },
         status_code=201,
     )
 
 
-@app.patch("/students/{student_id}")
-def update_books(
-    student: updateStudentModel,
-    student_id: str = Path(None, min_length=10, max_length=10),
+@app.patch("/rooms/{rooms_id}")
+def update_rooms(
+    rooms: updateRoomsModel,
+    rooms_id: str = Path(None, min_length=10, max_length=10),
 ):
-    print("student", student)
+    print("rooms", rooms)
     try:
-        updated_student_id, modified_count = mongo_db.update(student_id, student)
+        updated_rooms_id, modified_count = mongo_db.update(rooms_id, rooms)
     except:
         raise HTTPException(status_code=500, detail="Something went wrong !!")
 
     if modified_count == 0:
         raise HTTPException(
             status_code=404,
-            detail=f"Student Id: {updated_student_id} is not update want fields",
+            detail=f"rooms Id: {updated_rooms_id} is not update want fields",
         )
 
     return JSONResponse(
         content={
             "status": "ok",
             "data": {
-                "student_id": updated_student_id,
+                "rooms_id": updated_rooms_id,
                 "modified_count": modified_count,
             },
         },
@@ -116,24 +119,24 @@ def update_books(
     )
 
 
-@app.delete("/students/{student_id}")
-def delete_book_by_id(student_id: str = Path(None, min_length=10, max_length=10)):
+@app.delete("/rooms/{rooms_id}")
+def delete_rooms_by_id(rooms_id: str = Path(None, min_length=10, max_length=10)):
     try:
-        deleted_student_id, deleted_count = mongo_db.delete(student_id)
+        deleted_rooms_id, rooms_count = mongo_db.delete(rooms_id)
     except:
         raise HTTPException(status_code=500, detail="Something went wrong !!")
 
-    if deleted_count == 0:
+    if rooms_count == 0:
         raise HTTPException(
-            status_code=404, detail=f"Student Id: {deleted_student_id} is not Delete"
+            status_code=404, detail=f"rooms Id: {deleted_rooms_id} is  Deleted"
         )
 
     return JSONResponse(
         content={
             "status": "ok",
             "data": {
-                "student_id": deleted_student_id,
-                "deleted_count": deleted_count,
+                "rooms_id": deleted_rooms_id,
+                "deleted_count": rooms_count,
             },
         },
         status_code=200,

@@ -1,0 +1,11 @@
+{
+  "allroom" : {
+    "private" : {
+      "-MWAJzl4HZ2tSMNXoxMa" : {
+        "id" : "1000000001",
+        "price" : "1200",
+        "rooms_name" : "Private rooms"
+      }
+    }
+  }
+}
